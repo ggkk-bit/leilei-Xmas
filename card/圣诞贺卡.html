@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>给蕾蕾的圣诞贺卡</title>
+  <meta name="description" content="Merry Christmas, 蕾蕾。" />
+  <style>
+    :root{
+      --bg1:#0b1220; --bg2:#0a0f1a;
+      --card:#0f1a2b99; --stroke:#ffffff1a;
+      --text:#f5f7ff; --muted:#cfd7ffcc;
+      --gold:#d8c08a; --gold2:#bfa36b;
+      --shadow: 0 24px 80px rgba(0,0,0,.45);
+      --radius: 22px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      color:var(--text);
+      font-family: ui-serif, "Iowan Old Style","Palatino Linotype","Songti SC","STSong",serif;
+      background:
+        radial-gradient(1200px 800px at 70% 20%, rgba(216,192,138,.18), transparent 60%),
+        radial-gradient(900px 700px at 30% 70%, rgba(207,215,255,.12), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      overflow:hidden;
+    }
+
+    /* subtle grain */
+    body:before{
+      content:"";
+      position:fixed; inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.12'/%3E%3C/svg%3E");
+      mix-blend-mode:overlay;
+      pointer-events:none;
+    }
+
+    .wrap{
+      height:100%;
+      display:grid;
+      place-items:center;
+      padding:24px;
+      position:relative;
+    }
+
+    .card{
+      width:min(920px, 92vw);
+      min-height:min(560px, 78vh);
+      background:linear-gradient(180deg, rgba(15,26,43,.72), rgba(15,26,43,.42));
+      border:1px solid var(--stroke);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(14px);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .glow{
+      position:absolute; inset:-80px;
+      background:
+        radial-gradient(400px 260px at 18% 18%, rgba(216,192,138,.22), transparent 60%),
+        radial-gradient(460px 320px at 78% 30%, rgba(207,215,255,.14), transparent 60%),
+        radial-gradient(420px 300px at 60% 85%, rgba(216,192,138,.10), transparent 70%);
+      filter: blur(0px);
+      pointer-events:none;
+    }
+
+    .content{
+      position:relative;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:28px;
+      padding:34px;
+    }
+    @media (max-width: 860px){
+      .content{grid-template-columns:1fr; padding:26px; gap:18px;}
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border:1px solid rgba(216,192,138,.28);
+      border-radius:999px;
+      color:rgba(216,192,138,.95);
+      font-size:14px;
+      letter-spacing:.2px;
+      background:rgba(216,192,138,.06);
+    }
+    .dot{
+      width:7px;height:7px;border-radius:50%;
+      background:linear-gradient(180deg,var(--gold),var(--gold2));
+      box-shadow:0 0 16px rgba(216,192,138,.55);
+    }
+
+    h1{
+      margin:18px 0 8px;
+      font-size: clamp(32px, 4.6vw, 54px);
+      font-weight: 650;
+      letter-spacing: .4px;
+      line-height: 1.06;
+    }
+
+    .sub{
+      color:var(--muted);
+      font-family: ui-sans-serif, system-ui, -apple-system, "PingFang SC","Microsoft YaHei", sans-serif;
+      font-size: 15px;
+      line-height: 1.75;
+      margin: 0 0 18px;
+      max-width: 56ch;
+    }
+
+    .actions{
+      display:flex; gap:12px; flex-wrap:wrap;
+      margin-top:18px;
+    }
+    .btn{
+      border-radius: 999px;
+      padding: 12px 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      cursor:pointer;
+      font-family: ui-sans-serif, system-ui, -apple-system, "PingFang SC","Microsoft YaHei", sans-serif;
+      font-size: 14px;
+      letter-spacing:.2px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      user-select:none;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); border-color: rgba(255,255,255,.18); }
+    .btn.primary{
+      background: linear-gradient(180deg, rgba(216,192,138,.22), rgba(191,163,107,.10));
+      border-color: rgba(216,192,138,.35);
+    }
+
+    .right{
+      display:grid;
+      align-content:start;
+      gap:14px;
+    }
+    .photo{
+      width:100%;
+      aspect-ratio: 4/3;
+      border-radius: 18px;
+      border:1px solid rgba(255,255,255,.12);
+      overflow:hidden;
+      position:relative;
+      background:
+        radial-gradient(600px 420px at 70% 20%, rgba(216,192,138,.18), transparent 60%),
+        radial-gradient(500px 360px at 30% 80%, rgba(207,215,255,.10), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    }
+    .photo img{
+      width:100%; height:100%;
+      object-fit:cover;
+      opacity:.88;
+      filter:saturate(.92) contrast(1.04);
+    }
+    .photo:after{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, transparent 30%, rgba(11,18,32,.55));
+      pointer-events:none;
+    }
+    .caption{
+      margin-top:10px;
+      padding:14px 16px;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      color: rgba(245,247,255,.92);
+      font-family: ui-sans-serif, system-ui, -apple-system, "PingFang SC","Microsoft YaHei", sans-serif;
+      line-height:1.7;
+      font-size:14px;
+    }
+    .caption strong{ color: rgba(216,192,138,.95); font-weight:650;}
+
+    /* letter modal */
+    .modal{
+      position:fixed; inset:0;
+      display:none;
+      place-items:center;
+      padding:24px;
+      background: rgba(0,0,0,.55);
+      backdrop-filter: blur(10px);
+      z-index:10;
+    }
+    .modal.open{ display:grid; }
+    .letter{
+      width:min(720px, 92vw);
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.14);
+      background: linear-gradient(180deg, rgba(18,28,46,.88), rgba(15,22,36,.72));
+      box-shadow: 0 26px 90px rgba(0,0,0,.55);
+      overflow:hidden;
+      position:relative;
+    }
+    .letter .top{
+      padding:18px 20px;
+      display:flex; align-items:center; justify-content:space-between;
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .seal{
+      display:flex; align-items:center; gap:10px;
+      color: rgba(216,192,138,.95);
+      font-family: ui-sans-serif, system-ui, -apple-system, "PingFang SC","Microsoft YaHei", sans-serif;
+      font-size:13px;
+      letter-spacing:.2px;
+    }
+    .x{
+      border:none; background:transparent; color:rgba(255,255,255,.8);
+      font-size:18px; cursor:pointer; padding:8px 10px; border-radius:12px;
+    }
+    .x:hover{ background: rgba(255,255,255,.06); }
+
+    .letter .body{
+      padding:22px 22px 24px;
+      font-family: ui-serif, "Songti SC","STSong",serif;
+      line-height: 1.9;
+      font-size: 16px;
+      color: rgba(245,247,255,.94);
+    }
+    .sig{
+      margin-top:16px;
+      color: rgba(207,215,255,.88);
+      font-family: ui-sans-serif, system-ui, -apple-system, "PingFang SC","Microsoft YaHei", sans-serif;
+      font-size: 14px;
+    }
+    .sig b{ color: rgba(216,192,138,.95); }
+
+    /* fade-in */
+    .fade{
+      opacity:0;
+      transform: translateY(10px);
+      animation: in .9s ease forwards;
+    }
+    .fade.d2{ animation-delay:.15s;}
+    .fade.d3{ animation-delay:.3s;}
+    .fade.d4{ animation-delay:.45s;}
+    @keyframes in { to { opacity:1; transform:none; } }
+
+    /* canvas snow */
+    canvas#snow{
+      position:fixed; inset:0;
+      pointer-events:none;
+      z-index:0;
+    }
+
+    .footer{
+      margin-top:18px;
+      color: rgba(207,215,255,.55);
+      font-family: ui-sans-serif, system-ui, -apple-system, "PingFang SC","Microsoft YaHei", sans-serif;
+      font-size: 12px;
+    }
+    a{ color: rgba(216,192,138,.95); text-decoration:none; border-bottom:1px solid rgba(216,192,138,.35);}
+    a:hover{ border-bottom-color: rgba(216,192,138,.75); }
+  </style>
+</head>
+
+<body>
+  <canvas id="snow"></canvas>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="glow"></div>
+
+      <div class="content">
+        <section>
+          <div class="badge fade">
+            <span class="dot"></span>
+            <span>To 蕾蕾 · Merry Christmas</span>
+          </div>
+
+          <h1 class="fade d2">愿这个冬天，<br/>把温柔都给你。</h1>
+
+          <p class="sub fade d3">
+            蕾蕾，圣诞快乐。<br/>
+            今年我最想珍惜的，是你在身边时那种安定的光：不喧哗，但一直在。<br/>
+            希望你每一次疲惫都能被轻轻接住，每一个愿望都被认真对待。
+          </p>
+
+          <div class="actions fade d4">
+            <button class="btn primary" id="openLetter">🎁 点击拆封一封信</button>
+            <button class="btn" id="copyLink">🔗 复制这张贺卡的链接</button>
+            <button class="btn" id="toggleSnow">❄️ 雪变小一点</button>
+          </div>
+
+          <div class="footer fade d4">
+            小提示：你可以把右侧图片换成你们的合照；部署到 GitHub Pages / Vercel 后发给她即可。
+          </div>
+        </section>
+
+        <aside class="right">
+          <div class="photo fade d2">
+            <!-- 换成你们的照片链接（也可以本地 ./photo.jpg） -->
+            <img alt="蕾蕾" src="https://images.unsplash.com/photo-1542396601-dca920ea2807?auto=format&fit=crop&w=1200&q=80"/>
+          </div>
+
+          <div class="caption fade d3">
+            <strong>今晚的愿望：</strong>愿你平安喜乐，<br/>
+            愿我们把日子过得更柔软、更笃定。<br/>
+            <span style="opacity:.8">（点“拆封”有隐藏内容）</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="letter" role="dialog" aria-modal="true">
+      <div class="top">
+        <div class="seal">
+          <span class="dot"></span>
+          <span>Confidential · 只给蕾蕾</span>
+        </div>
+        <button class="x" id="closeLetter" aria-label="关闭">✕</button>
+      </div>
+      <div class="body" id="letterBody">
+        <!-- 你可以在这里写更私人的内容 -->
+        <div>
+          蕾蕾：<br/><br/>
+          如果把一年折成一张纸，我想把最温柔的那一页递给你。<br/>
+          谢谢你在我忙乱的时候仍愿意理解、在我不够浪漫的时候仍愿意期待。<br/><br/>
+          这个圣诞节，我想对你说：蕾蕾，圣诞快乐！LOVE YOU！<br/>
+          未来的很多天，我都想和你一起慢慢走——不急，但坚定。<br/><br/>
+          圣诞快乐。也祝你每天都快乐。
+          <div class="sig">— <b>YDK</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== Snow (subtle, premium) =====
+    const canvas = document.getElementById("snow");
+    const ctx = canvas.getContext("2d");
+    let w, h, dpr, flakes = [];
+    let intensity = 1; // 1 normal, 0.5 small
+
+    function resize(){
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = canvas.width = Math.floor(innerWidth * dpr);
+      h = canvas.height = Math.floor(innerHeight * dpr);
+      canvas.style.width = innerWidth + "px";
+      canvas.style.height = innerHeight + "px";
+      ctx.setTransform(1,0,0,1,0,0);
+      ctx.scale(dpr, dpr);
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    function seed(){
+      flakes = [];
+      const n = Math.floor((innerWidth * innerHeight) / 18000); // density
+      for(let i=0;i<n;i++){
+        flakes.push({
+          x: Math.random()*innerWidth,
+          y: Math.random()*innerHeight,
+          r: (Math.random()*1.6 + 0.6),
+          vy: (Math.random()*0.9 + 0.35),
+          vx: (Math.random()*0.5 - 0.25),
+          a: (Math.random()*0.35 + 0.10)
+        });
+      }
+    }
+    seed();
+
+    function tick(){
+      ctx.clearRect(0,0,innerWidth,innerHeight);
+      ctx.globalCompositeOperation = "lighter";
+      for(const f of flakes){
+        const r = f.r * intensity;
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(245,247,255,${f.a})`;
+        ctx.arc(f.x, f.y, r, 0, Math.PI*2);
+        ctx.fill();
+
+        f.y += f.vy * intensity;
+        f.x += f.vx * intensity;
+
+        if(f.y > innerHeight + 8) { f.y = -8; f.x = Math.random()*innerWidth; }
+        if(f.x < -8) f.x = innerWidth + 8;
+        if(f.x > innerWidth + 8) f.x = -8;
+      }
+      ctx.globalCompositeOperation = "source-over";
+      requestAnimationFrame(tick);
+    }
+    tick();
+
+    // ===== Interactions =====
+    const modal = document.getElementById("modal");
+    document.getElementById("openLetter").addEventListener("click", ()=> modal.classList.add("open"));
+    document.getElementById("closeLetter").addEventListener("click", ()=> modal.classList.remove("open"));
+    modal.addEventListener("click", (e)=>{ if(e.target === modal) modal.classList.remove("open"); });
+
+    document.getElementById("toggleSnow").addEventListener("click", (e)=>{
+      intensity = (intensity === 1) ? 0.55 : 1;
+      e.target.textContent = (intensity === 1) ? "❄️ 雪变小一点" : "❄️ 恢复正常飘雪";
+    });
+
+    document.getElementById("copyLink").addEventListener("click", async ()=>{
+      try{
+        await navigator.clipboard.writeText(location.href);
+        alert("已复制链接：发给蕾蕾就好啦！");
+      }catch{
+        prompt("复制失败（可能浏览器限制），手动复制这个链接：", location.href);
+      }
+    });
+
+    // optional: keyboard
+    window.addEventListener("keydown", (e)=>{
+      if(e.key === "Escape") modal.classList.remove("open");
+    });
+  </script>
+</body>
+</html>

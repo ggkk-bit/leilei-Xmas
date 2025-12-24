@@ -288,14 +288,15 @@
           </div>
 
           <div class="footer fade d4">
-            小提示：你可以把右侧图片换成你们的合照；部署到 GitHub Pages / Vercel 后发给她即可。
+      
           </div>
         </section>
 
         <aside class="right">
           <div class="photo fade d2">
             <!-- 换成你们的照片链接（也可以本地 ./photo.jpg） -->
-            <img alt="蕾蕾" src="https://images.unsplash.com/photo-1542396601-dca920ea2807?auto=format&fit=crop&w=1200&q=80"/>
+          <img alt="蕾蕾" src="./photo.jpg"/>
+
           </div>
 
           <div class="caption fade d3">
@@ -403,7 +404,7 @@
     document.getElementById("copyLink").addEventListener("click", async ()=>{
       try{
         await navigator.clipboard.writeText(location.href);
-        alert("已复制链接：发给蕾蕾就好啦！");
+        alert("已复制链接，则复制");
       }catch{
         prompt("复制失败（可能浏览器限制），手动复制这个链接：", location.href);
       }
@@ -416,3 +417,4 @@
   </script>
 </body>
 </html>
+
